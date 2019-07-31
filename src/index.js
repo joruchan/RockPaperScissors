@@ -8,44 +8,35 @@ const youPicked = document.getElementById('youPicked');
 const iPicked = document.getElementById('iPicked');
 const result = document.getElementById('result');
 
-// the computer's choices
-const choices = ['Rock', 'Paper', 'Scissors'];
+const choices = [
+  { choice: 'Rock', strongVS: 'Scissors' },
+  { choice: 'Scissors', strongVS: 'Paper' },
+  { choice: 'Paper', strongVS: 'Rock' },
+];
+
+const verifyResult = function (choice) {
+  youPicked.innerHTML = 'You picked ' + choice + '!';
+  const myChoice = choices[Math.floor(Math.random() * choices.length)];
+  iPicked.innerHTML = 'I picked ' + myChoice.choice + '...';
+  let battleResult = '';
+  if (myChoice.choice === choice) {
+    battleResult = 'We Picked the Same!';
+  } else if (myChoice.strongVS === choice) {
+    battleResult = 'You lost!';
+  } else {
+    battleResult = 'You won!';
+  }
+  result.innerHTML = battleResult;
+};
 
 rockBtn.addEventListener('click', function () {
-  youPicked.innerHTML = 'You picked Rock!';
-  const myChoice = choices[Math.floor(Math.random() * choices.length)];
-  iPicked.innerHTML = 'I picked ' + myChoice + '...';
-  const yourChoice = 'Rock';
-  const battleResult = myChoice === yourChoice
-    ? 'We picked the same!'
-    : myChoice === 'Paper'
-      ? 'You Lost !'
-      : 'You won !';
-  result.innerHTML = battleResult;
+  return verifyResult('Rock');
 });
 
 paperBtn.addEventListener('click', function () {
-  youPicked.innerHTML = 'You picked Paper!';
-  const myChoice = choices[Math.floor(Math.random() * choices.length)];
-  iPicked.innerHTML = 'I picked ' + myChoice + '...';
-  const yourChoice = 'Paper';
-  const battleResult = myChoice === yourChoice
-    ? 'We picked the same!'
-    : myChoice === 'Scissors'
-      ? 'You Lost !'
-      : 'You won !';
-  result.innerHTML = battleResult;
+  return verifyResult('Paper');
 });
 
 scissorsBtn.addEventListener('click', function () {
-  youPicked.innerHTML = 'You picked Scissors!';
-  const myChoice = choices[Math.floor(Math.random() * choices.length)];
-  iPicked.innerHTML = 'I picked ' + myChoice + '...';
-  const yourChoice = 'Scissors';
-  const battleResult = myChoice === yourChoice
-    ? 'We picked the same!'
-    : myChoice === 'Rock'
-      ? 'You Lost !'
-      : 'You won !';
-  result.innerHTML = battleResult;
+  return verifyResult('Scissors');
 });
